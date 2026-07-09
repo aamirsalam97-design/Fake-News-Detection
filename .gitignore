@@ -2,3 +2,4 @@ venv/
 __pycache__/
 *.pyc
 Prediction_Report.pdf
+dataset/
