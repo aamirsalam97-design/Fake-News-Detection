@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Fake News Detection</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📰 AI Fake News Detection</h1>
+
+<form action="/predict" method="POST">
+
+<textarea
+name="news"
+placeholder="Paste News Here..."
+>{{news}}</textarea>
+
+<button>
+
+Predict News
+
+</button>
+
+</form>
+
+{% if prediction %}
+<br>
+
+<a href="/download">
+    <button type="button">
+        📄 Download PDF Report
+    </button>
+</a>
+
+<div class="result">
+
+{{prediction}}
+<br><br>
+
+<p>Confidence: {{confidence}}%</p>
+
+<div class="progress">
+    <div class="progress-bar" style="width: {{confidence}}%;">
+        {{confidence}}%
+    </div>
+</div>
+</div>
+
+{% endif %}
+
+{% if history %}
+
+<h2 style="color:white; text-align:center; margin-top:30px;">
+    Prediction History
+</h2>
+
+<table border="1" cellpadding="10" width="100%" style="background:white; border-collapse:collapse;">
+    <tr>
+        <th>News</th>
+        <th>Prediction</th>
+        <th>Confidence</th>
+    </tr>
+
+    {% for item in history %}
+    <tr>
+        <td>{{ item.news }}</td>
+        <td>{{ item.prediction }}</td>
+        <td>{{ item.confidence }}%</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
